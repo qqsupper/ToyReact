@@ -25,9 +25,11 @@ class TextWrapper{ //设置文本节点
 }
 
 export class Component{
+ 
    constructor(){
     this.children=[]
    }
+     //组件方法
    setAttribute(name,value){
      this[name]=value  
    }
@@ -45,6 +47,7 @@ export class Component{
 
 export let TonyReact={
  createElement(type,attributes,...children){
+   //组件和原生节点
   console.log(arguments)
       let element;
       if(typeof type==='string')
@@ -71,6 +74,7 @@ export let TonyReact={
         if(typeof child==='string'){
            child=new TextWrapper(child)
         }
+        
         element.appendChild(child)
      }
    }
