@@ -16,11 +16,11 @@ class ElementWrapper{ //设置元素节点
 
 class TextWrapper{ //设置文本节点
   constructor(content){
-   this.root=document.createTextNode(content) //
+   this.root=document.createTextNode(content) //创建文本节点
   }
 
   mountTo(parent){
-   parent.appendChild(this.root)
+   parent.appendChild(this.root) //将文本节点挂载到父节点上
   }
 }
 
