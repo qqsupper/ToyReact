@@ -16,7 +16,7 @@ class ElementWrapper{ //设置元素节点
    
       this.root.setAttribute(name,value)  //设置节点属性
    }
-   appendChild(vchild){
+   appendChild(range){
       let range=document.createRange()
       if(this.root.children.length){
          range.setStartAfter(this.root.lastChild)
@@ -28,7 +28,8 @@ class ElementWrapper{ //设置元素节点
       vchild.mountTo(range) //将虚拟子节点挂载到节点上
    }
    mountTo(range){
-      parent.appendChild(this.root) //将节点挂载到父节点上
+         range.deleteContents();
+         range.insertNode(this.root)
    }
 }
 
@@ -51,6 +52,10 @@ export class Component{
    }
      //组件方法
    setAttribute(name,value){
+      if(name.match(/^on([\s\S]+)/)){
+         console.log(RegExp.$1)
+
+      }
      this.props[name]=value
      this[name]=value  
    }
@@ -139,8 +144,15 @@ export let TonyReact={
    return element
  },
  render(vdom, element) {
-  console.log(111,vdom)
-   // vdom是a,element是body
-   vdom.mountTo(element)
+      let range=document.createRange()
+      if(element.children.length){
+         range.setStartAfter(element.lastChild)
+         range.setEndAfter(element.lastChild)
+      }else{
+         range.setStart(element,0)
+         range.setEnd(element,0)
+      }
+
+      vdom.mountTo(range)
  }
 }
